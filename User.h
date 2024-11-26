@@ -1,6 +1,7 @@
 #include <string>
 #include <vector>
 #include <iostream>
+#include <fstream>
 #include "Reservation.h"
 using namespace std;
 
@@ -19,6 +20,17 @@ private:
     vector<Reservation> reservations;
 
 public:
+    User(string _name, string _password){
+        name = _name;
+        password = _password;
+    }
+
+    User(int _id_user, string _name, string _mail, string _password){
+        id_user = _id_user;
+        name = _name;
+        mail = _mail;
+        password = _password;
+    }
     /**
      * Obtiene el ID del usuario.
      * 
@@ -107,6 +119,16 @@ public:
      */
     void setReservations(vector<Reservation> res) { 
         reservations = res; 
+    }
+
+    void createUser(){
+        ofstream userFile;
+        userFile.open("userData.txt", ios::app);
+        userFile <<  name << " " << mail << " " << password << endl;
+        userFile.close();
+
+        ofstream reservation("./userReservations/" + name + ".txt");
+        reservation.close();
     }
 
     /**
