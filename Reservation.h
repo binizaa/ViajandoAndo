@@ -1,7 +1,7 @@
 #ifndef RESERVATION_H
 #define RESERVATION_H
 
-#include "Vuelo.h"
+#include "Flight.h"
 
 /**
  * Clase Reservation
@@ -12,7 +12,7 @@
 class Reservation {
 private:
     int id_reserva;
-    Vuelo vuelo;
+    Flight vuelo;
     float price;
 
 public:
@@ -30,7 +30,7 @@ public:
      * 
      * @return Objeto Vuelo reservado.
      */
-    Vuelo getVuelo() { 
+    Flight getVuelo() { 
         return vuelo; 
     }
     
@@ -57,7 +57,7 @@ public:
      * 
      * @param v Objeto Vuelo reservado.
      */
-    void setVuelo(Vuelo v) { 
+    void setVuelo(Flight v) { 
         vuelo = v; 
     }
     

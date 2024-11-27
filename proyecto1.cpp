@@ -3,12 +3,22 @@
 #include <iostream>
 #include <cstdlib> 
 #include <sstream>
+#include <cctype>
 #include <thread>
 #include <map>
-#include "Vuelo.h"
+#include "Flight.h"
 #include "Reservation.h"
 #include "User.h"
+
 using namespace std;
+
+void clear(){
+    #ifdef _WIN32
+                system("cls"); 
+        #else
+                    system("clear"); 
+            #endif
+}
 
 User logIn(map<string,User> users) {
     string username, password;
@@ -48,11 +58,7 @@ User createAccount(int newId, map<string,User> users) {
 }
 
 User accountLogin(map<string, User>& userData){
-    #ifdef _WIN32
-                system("cls"); 
-    #else
-                system("clear"); 
-        #endif
+    clear();
 
     int opc;
 
@@ -81,8 +87,14 @@ User accountLogin(map<string, User>& userData){
     }
 }
 
-void mostrarVuelos(){
-    cout<<"------------------Vuelos disponibles------------------";
+void mostrarVuelos(map<int,Flight> flights){
+    clear();
+    
+    cout << "------------------Vuelos disponibles------------------" << endl;
+
+    for (map<int, Flight>::const_iterator it = flights.begin(); it != flights.end(); ++it) {
+        cout << it->second.toString() << endl;
+    }
     
 }
 
@@ -114,10 +126,63 @@ map<string,User> loadDataBase() {
     return users;
 }
 
+map<int, Flight> loadFlightData() {
+    map<int, Flight> flights;
 
+    ifstream file("flightData.csv");
+    if (!file) {
+        cerr << "Error: No se pudo abrir el archivo flightData.csv" << endl;
+        return flights;
+    }
+
+    string line;
+    getline(file, line); 
+
+    while (getline(file, line)) {
+        stringstream ss(line);
+        string flightNumberStr, airline, priceStr, durationStr, dateStr, origin, destination;
+
+        if (getline(ss, flightNumberStr, ',') &&
+            getline(ss, airline, ',') &&
+            getline(ss, priceStr, ',') &&
+            getline(ss, durationStr, ',') &&
+            getline(ss, dateStr, ',') &&
+            getline(ss, origin, ',') &&
+            getline(ss, destination, ',')) {
+
+            int flightNumber = stoi(flightNumberStr);
+            float price = stof(priceStr);
+            float duration = stof(durationStr);
+
+            // Dividir la fecha en partes: YYYY-MM-DD
+            vector<int> date(3);
+            stringstream dateStream(dateStr);
+            string year, month, day;
+
+            if (getline(dateStream, year, '-') &&
+                getline(dateStream, month, '-') &&
+                getline(dateStream, day)) {
+                date[0] = stoi(day); 
+                date[1] = stoi(month);
+                date[2] = stoi(year);
+            } else {
+                cerr << "Error: Fecha malformada: " << dateStr << endl;
+                continue;
+            }
+
+            flights[flightNumber] = Flight(flightNumber, airline, price, duration, date, origin, destination);
+        } else {
+            cerr << "Error: Línea malformada: " << line << endl;
+        }
+    }
+
+    file.close();
+
+    return flights;
+}
 
 int main() {
-    //map<string, User> loadFligthData();
+    map<int, Flight> flightData = loadFlightData();
     map<string,User> userData = loadDataBase();
     User user = accountLogin(userData);
 
@@ -126,11 +191,7 @@ int main() {
     int option;
     char regresar = 'N';
     do {
-        #ifdef _WIN32
-                system("cls"); 
-        #else
-                    system("clear"); 
-            #endif
+        clear();
         
         cout<<"Bienvenido al ViajandoAndo "<<user.getName()<<endl;
         cout << "\n--- Menú de Vuelos ---\n";
@@ -147,8 +208,7 @@ int main() {
 
         switch (option) {
             case 1:
-                cout << "Opción 1: Muestra todos los vuelos y ve sus detalles.\n";
-                mostrarVuelos();
+                mostrarVuelos(flightData);
                 break;
             case 2:
                 cout << "Opción 2: Buscar vuelos por aerolínea y fecha específica seleccionada.\n";
@@ -177,7 +237,7 @@ int main() {
                 cout << "Opción inválida. Intente de nuevo.\n";
         }
         
-        if(option!=7){
+        if(toupper(option)!=7){
             cout<<"¿Deseas regresar al ménu del usuario?(S/N)"<<endl;
             cin>>regresar;
         }

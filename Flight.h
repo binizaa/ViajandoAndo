@@ -1,5 +1,5 @@
-#ifndef VUELO_H
-#define VUELO_H
+#ifndef FLIGHT_H
+#define FLIGHT_H
 
 #include <string>
 #include <vector>
@@ -13,7 +13,7 @@ using namespace std;
  * relacionados con el vuelo, como el número, la aerolínea, el precio, la duración, la fecha, el origen, 
  * el destino y la disponibilidad de asientos.
  */
-class Vuelo {
+class Flight {
 private:
     int flight_number;
     string airline;
@@ -25,6 +25,20 @@ private:
     vector<vector<bool> > availability;
 
 public:
+
+    Flight()
+        : flight_number(0), price(0.0), duration(0.0), date(3, 0), origin(""), destination("") {}
+
+    Flight(int _flight_number, string _airline, float _price, float _duration, vector<int> _date, string _origin, string _destination) {
+        flight_number = _flight_number;
+        airline = _airline;
+        price = _price;
+        duration = _duration;
+        date = _date;
+        origin = _origin;
+        destination = _destination;
+    }
+    
     /**
      * Obtiene el número de vuelo.
      * 
@@ -177,15 +191,15 @@ public:
      * 
      * @return Una cadena que contiene la descripción completa del vuelo.
      */
-    string toString(){
-        string str = "Vuelo #" + to_string(flight_number);
-        str += " | Aerolínea: " + airline;
-        str += " | Precio: $" + to_string(price);
-        str += " | Duración: " + to_string(duration) + " hrs";
-        str += " | Origen: " + origin;
-        str += " | Destino: " + destination;
-        str += " | Fecha: " + to_string(date[0]) + "-" + to_string(date[1]) + "-" + to_string(date[2]);
-        return str;
+    string toString() const {
+        string dateStr = to_string(date[0]) + "-" + to_string(date[1]) + "-" + to_string(date[2]);
+        return "Vuelo: " + to_string(flight_number) +
+               "\nAerolínea: " + airline +
+               "\nPrecio: $" + to_string(price) +
+               "\nDuración: " + to_string(duration) + " hrs" +
+               "\nFecha: " + dateStr +
+               "\nOrigen: " + origin +
+               "\nDestino: " + destination + "\n";
     }
 };
 #endif

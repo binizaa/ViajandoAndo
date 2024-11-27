@@ -1,6 +1,7 @@
 #include <string>
 #include <vector>
 #include <iostream>
+#include <thread>
 #include <fstream>
 #include <map>
 #include "Reservation.h"
@@ -167,7 +168,8 @@ public:
     User authenticateUser(map<string, User> users) {
         if (users.find(name) != users.end()) {
             if (users[name].password == password) {
-                cout << "Contraseña correcta" << endl;
+                cout << "Contraseña correcta, cargando..." << endl;
+                this_thread::sleep_for(chrono::seconds(1));
                 return users[name]; 
             } else {
                 cout << "Contraseña incorrecta" << endl;
