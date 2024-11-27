@@ -18,11 +18,13 @@ private:
     string mail;
     string password;
     vector<Reservation> reservations;
+    bool isValid;
 
 public:
     User(string _name, string _password){
         name = _name;
         password = _password;
+        isValid = true;
     }
 
     User(int _id_user, string _name, string _mail, string _password){
@@ -30,7 +32,12 @@ public:
         name = _name;
         mail = _mail;
         password = _password;
+        isValid = true;
     }
+
+    // Constructor para un usuario no válido
+    User() : name(""), password(""), isValid(false) {}
+    
     /**
      * Obtiene el ID del usuario.
      * 
@@ -74,6 +81,10 @@ public:
      */
     vector<Reservation> getReservations() { 
         return reservations; 
+    }
+
+    bool getIsValid() const {
+        return isValid;
     }
 
     /**
@@ -121,15 +132,53 @@ public:
         reservations = res; 
     }
 
-    void createUser(){
+    // Setter para isValid
+    void setIsValid(bool valid) {
+        isValid = valid;
+    }
+
+    void createUser() {
         ofstream userFile;
-        userFile.open("userData.txt", ios::app);
-        userFile <<  name << " " << mail << " " << password << endl;
+
+        userFile.open("userData.csv", ios::app);
+
+        if (!userFile) {
+            cerr << "Error: No se pudo abrir el archivo userData.csv" << endl;
+            return;
+        }
+
+        userFile << id_user << "," << name << "," << mail << "," << password << endl;
+
         userFile.close();
 
-        ofstream reservation("./userReservations/" + name + ".txt");
+        //Crear el simulador de revervaciones
+
+        ofstream reservation("./userReservations/" + to_string(id_user) + ".csv");
+
+        if (!reservation) {
+            cerr << "Error: No se pudo crear el archivo de reservas para " << name << endl;
+            return;
+        }
+
         reservation.close();
     }
+
+    User authenticateUser(const vector<User>& users) {
+        for(int i = 0; i<users.size(); i++){
+            if (name == users[i].name) {
+                if (password == users[i].password) {
+                    cout << "Contraseña correcta" << endl;
+                    return users[i];
+                } else {
+                    cout << "Contraseña incorrecta" << endl;
+                    return User(); // Usuario no válido
+                }
+            }
+        }
+        cout << "Ese usuario no existe" << endl;
+        return User();
+    }
+
 
     /**
      * Convierte la información del usuario a una representación de cadena.
