@@ -2,6 +2,7 @@
 #include <vector>
 #include <iostream>
 #include <fstream>
+#include <map>
 #include "Reservation.h"
 using namespace std;
 
@@ -163,22 +164,23 @@ public:
         reservation.close();
     }
 
-    User authenticateUser(const vector<User>& users) {
-        for(int i = 0; i<users.size(); i++){
-            if (name == users[i].name) {
-                if (password == users[i].password) {
-                    cout << "Contraseña correcta" << endl;
-                    return users[i];
-                } else {
-                    cout << "Contraseña incorrecta" << endl;
-                    return User(); // Usuario no válido
-                }
+    User authenticateUser(map<string, User> users) {
+        if (users.find(name) != users.end()) {
+            if (users[name].password == password) {
+                cout << "Contraseña correcta" << endl;
+                return users[name]; 
+            } else {
+                cout << "Contraseña incorrecta" << endl;
+                return User(); // Usuario no válido
             }
         }
         cout << "Ese usuario no existe" << endl;
-        return User();
+        return User(); // Usuario no válido
     }
 
+    bool exist(map<string, User> users){
+        return users.find(name) != users.end();
+    }
 
     /**
      * Convierte la información del usuario a una representación de cadena.

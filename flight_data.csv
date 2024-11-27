@@ -1,0 +1,101 @@
+Flight Number,Airline,Price,Duration (hrs),Date,Origin,Destination
+1,GlobalWings,272.16,10,2025-09-28,Houston,San Francisco
+2,AeroFly,1311.79,6,2025-10-27,New York,San Francisco
+3,CloudJet,238.61,7,2025-08-17,Los Angeles,Boston
+4,SkyLine,108.96,6,2024-12-12,Phoenix,Seattle
+5,GlobalWings,374.08,9,2025-03-13,Phoenix,Seattle
+6,AeroFly,1215.51,9,2025-06-14,Chicago,Miami
+7,GlobalWings,1006.04,12,2025-09-15,Los Angeles,Denver
+8,GlobalWings,1403.03,11,2025-04-22,Houston,Boston
+9,GlobalWings,401.22,6,2025-05-29,Chicago,Seattle
+10,GlobalWings,786.68,4,2025-02-15,Phoenix,San Francisco
+11,AeroFly,100.61,1,2025-11-21,Houston,Boston
+12,AeroFly,721.65,8,2025-07-23,Phoenix,San Francisco
+13,SkyLine,1104.04,9,2025-06-18,Houston,Denver
+14,AeroFly,1351.49,2,2025-06-15,Houston,Denver
+15,AirX,120.84,7,2025-08-19,Phoenix,San Francisco
+16,CloudJet,1235.57,5,2025-05-28,Houston,Boston
+17,AirX,1458.9,12,2025-02-05,Houston,Miami
+18,GlobalWings,638.2,2,2025-11-26,Los Angeles,Denver
+19,CloudJet,803.42,3,2025-07-11,Houston,Boston
+20,CloudJet,1144.09,1,2025-04-22,New York,Seattle
+21,AirX,1225.57,7,2025-02-26,New York,Miami
+22,AeroFly,111.4,12,2025-03-13,Los Angeles,Denver
+23,AirX,903.29,9,2025-11-06,Chicago,San Francisco
+24,AeroFly,1135.8,7,2025-11-08,Phoenix,Denver
+25,AeroFly,251.59,7,2024-12-07,Chicago,Boston
+26,AirX,497.15,4,2025-03-11,New York,Miami
+27,AirX,143.5,12,2025-04-11,New York,Seattle
+28,GlobalWings,1051.51,11,2025-03-11,Houston,San Francisco
+29,GlobalWings,1192.11,11,2025-08-14,Chicago,Denver
+30,CloudJet,964.1,4,2025-05-03,Phoenix,San Francisco
+31,AirX,229.63,3,2025-08-21,Houston,Miami
+32,AirX,1423.61,8,2024-12-02,New York,Miami
+33,GlobalWings,1209.32,8,2025-10-14,Los Angeles,San Francisco
+34,AirX,472.69,4,2025-09-25,Los Angeles,Miami
+35,GlobalWings,112.15,6,2025-08-18,Chicago,Boston
+36,GlobalWings,761.0,1,2025-09-07,Chicago,Boston
+37,AeroFly,152.06,5,2025-08-02,Los Angeles,Miami
+38,SkyLine,390.7,11,2025-08-21,Phoenix,Miami
+39,AeroFly,407.19,1,2025-09-13,Houston,Boston
+40,AirX,580.04,5,2025-05-27,Chicago,Miami
+41,SkyLine,211.41,6,2025-06-21,Phoenix,San Francisco
+42,CloudJet,1471.66,2,2025-01-12,New York,Seattle
+43,SkyLine,1171.76,11,2025-08-09,Chicago,Miami
+44,CloudJet,122.11,2,2025-01-08,Los Angeles,San Francisco
+45,SkyLine,1128.34,6,2025-09-01,New York,Seattle
+46,SkyLine,406.89,3,2025-05-26,Houston,Boston
+47,AirX,1394.14,5,2024-11-28,Chicago,Denver
+48,CloudJet,1478.61,5,2025-01-08,Los Angeles,Boston
+49,SkyLine,828.04,2,2025-07-12,Los Angeles,San Francisco
+50,SkyLine,289.28,8,2025-10-28,Houston,Boston
+51,GlobalWings,759.41,1,2025-10-01,New York,Boston
+52,CloudJet,967.49,11,2025-06-19,New York,Boston
+53,AeroFly,439.82,10,2025-11-12,Chicago,San Francisco
+54,SkyLine,1496.91,10,2025-09-23,New York,Boston
+55,SkyLine,1267.48,1,2025-05-03,New York,Miami
+56,GlobalWings,1385.25,9,2025-06-05,Phoenix,Denver
+57,SkyLine,763.76,9,2025-02-04,Houston,Denver
+58,CloudJet,575.18,7,2025-05-27,Los Angeles,Boston
+59,GlobalWings,935.34,3,2025-03-14,Chicago,Miami
+60,AeroFly,1470.01,10,2024-12-28,Houston,San Francisco
+61,GlobalWings,1382.7,11,2025-03-27,Houston,Boston
+62,SkyLine,531.63,10,2025-04-26,Chicago,Seattle
+63,CloudJet,942.49,5,2025-03-18,Phoenix,Denver
+64,AirX,1425.8,3,2025-09-19,Houston,Miami
+65,SkyLine,242.78,6,2025-01-25,Chicago,Denver
+66,AirX,343.81,8,2025-05-08,New York,Denver
+67,SkyLine,221.36,6,2024-11-27,New York,Miami
+68,GlobalWings,1086.64,10,2025-11-22,New York,Seattle
+69,AirX,502.12,8,2025-07-30,Phoenix,San Francisco
+70,GlobalWings,1276.76,1,2025-08-25,Chicago,San Francisco
+71,GlobalWings,1015.88,6,2025-06-02,Los Angeles,Seattle
+72,CloudJet,496.72,4,2025-11-25,Phoenix,San Francisco
+73,CloudJet,1036.94,5,2025-06-21,New York,San Francisco
+74,GlobalWings,1433.09,8,2025-06-12,New York,San Francisco
+75,AeroFly,1340.75,7,2025-10-13,New York,Miami
+76,CloudJet,1227.18,9,2024-11-28,Los Angeles,Boston
+77,CloudJet,818.8,3,2025-09-16,Los Angeles,Boston
+78,CloudJet,1495.36,2,2025-07-19,Los Angeles,Denver
+79,SkyLine,1042.02,4,2024-12-20,Phoenix,Denver
+80,AeroFly,588.55,3,2025-06-01,New York,Boston
+81,AeroFly,621.69,1,2025-02-19,Houston,San Francisco
+82,AeroFly,1174.91,1,2025-06-22,Phoenix,San Francisco
+83,SkyLine,351.65,1,2024-12-07,Los Angeles,San Francisco
+84,GlobalWings,1477.29,1,2025-07-09,Phoenix,Seattle
+85,AeroFly,836.91,11,2025-10-22,Houston,Seattle
+86,AeroFly,605.06,10,2025-04-26,Phoenix,Denver
+87,CloudJet,176.27,7,2025-11-07,Houston,Miami
+88,AirX,688.45,6,2024-12-09,Houston,San Francisco
+89,CloudJet,1394.96,5,2025-03-10,New York,Boston
+90,GlobalWings,1188.23,5,2025-10-22,Phoenix,Miami
+91,AeroFly,428.75,2,2025-07-24,New York,Denver
+92,CloudJet,570.48,10,2025-02-18,Los Angeles,Seattle
+93,GlobalWings,740.3,3,2025-05-24,Los Angeles,Miami
+94,CloudJet,622.68,10,2025-03-04,Phoenix,Boston
+95,AeroFly,103.16,4,2024-12-19,Houston,Denver
+96,AeroFly,1209.86,3,2025-08-17,Houston,Denver
+97,AeroFly,124.6,6,2025-03-18,Los Angeles,Miami
+98,SkyLine,239.95,6,2025-04-22,Houston,San Francisco
+99,AirX,930.51,1,2025-07-18,Houston,Miami
+100,SkyLine,672.57,10,2025-04-09,Chicago,Denver

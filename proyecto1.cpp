@@ -4,12 +4,13 @@
 #include <cstdlib> 
 #include <sstream>
 #include <thread>
+#include <map>
 #include "Vuelo.h"
 #include "Reservation.h"
 #include "User.h"
 using namespace std;
 
-User logIn(vector<User> users) {
+User logIn(map<string,User> users) {
     string username, password;
     cout << "\n------------------Inicio de sección------------------" << endl;
     cout << "Ingrese su nombre de usuario: ";
@@ -21,7 +22,7 @@ User logIn(vector<User> users) {
     return us.authenticateUser(users);
 }
 
-User createAccount(int newId) {
+User createAccount(int newId, map<string,User> users) {
     string newUsername, newPassword, newEmail;
 
     cout << "\n------------------Crear cuenta------------------" << endl;
@@ -32,8 +33,12 @@ User createAccount(int newId) {
     cout << "Ingrese una nueva contrasena: ";
     cin >> newPassword;
 
-
     User newUs(newId, newUsername, newEmail, newPassword);
+
+    if(newUs.exist(users)){
+        cout<<"Este usuario ya fue creado, elige otro nombre de usuario"<<endl;
+        return User();
+    } 
 
     newUs.createUser();
     
@@ -42,7 +47,7 @@ User createAccount(int newId) {
     return newUs;
 }
 
-User accountLogin(vector<User>& userData){
+User accountLogin(map<string, User>& userData){
     #ifdef _WIN32
                 system("cls"); 
     #else
@@ -63,8 +68,8 @@ User accountLogin(vector<User>& userData){
         return logIn(userData);
 
     }else if(opc == 2){
-        User newUser = createAccount(userData.size() + 1);
-        userData.push_back(newUser);
+        User newUser = createAccount(userData.size() + 1, userData);
+        userData[newUser.getName()] = newUser;
         return newUser;
     }else if(opc == 3){
         cout<<"Saliste del programa"<<endl;
@@ -76,8 +81,13 @@ User accountLogin(vector<User>& userData){
     }
 }
 
-vector<User> loadDataBase() {
-    vector<User> users;
+void mostrarVuelos(){
+    cout<<"------------------Vuelos disponibles------------------";
+    
+}
+
+map<string,User> loadDataBase() {
+    map<string,User> users;
 
     ifstream file("userData.csv");
     if (!file) {
@@ -93,7 +103,7 @@ vector<User> loadDataBase() {
         if (getline(ss, id_str, ',') && getline(ss, name, ',') && 
             getline(ss, email, ',') && getline(ss, password, ',')) {
             int id = stoi(id_str); 
-            users.push_back(User(id, name, email, password));
+            users[name] = User(id, name, email, password);
         } else {
             cerr << "Error: Línea malformada: " << line << endl;
         }
@@ -104,8 +114,11 @@ vector<User> loadDataBase() {
     return users;
 }
 
+
+
 int main() {
-    vector<User> userData = loadDataBase();
+    //map<string, User> loadFligthData();
+    map<string,User> userData = loadDataBase();
     User user = accountLogin(userData);
 
     if(!user.getIsValid()) return 0;
@@ -134,8 +147,8 @@ int main() {
 
         switch (option) {
             case 1:
-                cout << "Opción 1: Mostrar todos los vuelos seleccionada.\n";
-                // Aquí llamas a la función correspondiente
+                cout << "Opción 1: Muestra todos los vuelos y ve sus detalles.\n";
+                mostrarVuelos();
                 break;
             case 2:
                 cout << "Opción 2: Buscar vuelos por aerolínea y fecha específica seleccionada.\n";
