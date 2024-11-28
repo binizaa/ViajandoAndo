@@ -21,6 +21,7 @@ void clear(){
 }
 
 User logIn(map<string,User> users) {
+    clear();
     string username, password;
     cout << "\n------------------Inicio de sección------------------" << endl;
     cout << "Ingrese su nombre de usuario: ";
@@ -90,7 +91,7 @@ User accountLogin(map<string, User>& userData){
 void mostrarVuelos(map<int,Flight> flights){
     clear();
     
-    cout << "------------------Vuelos disponibles------------------" << endl;
+    cout << "------------------Vuelos disponibles------------------\n" << endl;
 
     for (map<int, Flight>::const_iterator it = flights.begin(); it != flights.end(); ++it) {
         cout << it->second.toString() << endl;

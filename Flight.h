@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include <iomanip>
 #include <iostream>
 using namespace std;
 
@@ -192,14 +193,26 @@ public:
      * @return Una cadena que contiene la descripción completa del vuelo.
      */
     string toString() const {
-        string dateStr = to_string(date[0]) + "-" + to_string(date[1]) + "-" + to_string(date[2]);
-        return "Vuelo: " + to_string(flight_number) +
-               "\nAerolínea: " + airline +
-               "\nPrecio: $" + to_string(price) +
-               "\nDuración: " + to_string(duration) + " hrs" +
-               "\nFecha: " + dateStr +
-               "\nOrigen: " + origin +
-               "\nDestino: " + destination + "\n";
+        // Usar ostringstream para manejar el formato
+        ostringstream output;
+
+        // Establecer precisión para precio y duración
+        output << fixed << setprecision(2);
+
+        // Formatear la fecha
+        string dateStr = to_string(date[0]) + "/" + to_string(date[1]) + "/" + to_string(date[2]);
+
+        // Construir el string del vuelo
+        output << "Vuelo: " << flight_number
+               << "\nOrigen: " << origin
+               << "\nDestino: " << destination
+               << "\nAerolínea: " << airline
+               << "\nPrecio: $" << price
+               << "\nDuración: " << static_cast<int>(duration) << " hrs"
+               << "\nFecha: " << dateStr << "\n";
+
+        // Convertir ostringstream a string
+        return output.str();
     }
 };
 #endif
