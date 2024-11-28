@@ -13,13 +13,11 @@ private:
     FlightData flightsData;
     ClientData usersData;
     map<int, Flight> flights;
-    map<string,User> users;
 
 public:
 
     Aplication(){
         flights = flightsData.loadFlightData();
-        users = usersData.loadDataBase();
     }
 
     void clear(){
@@ -31,6 +29,8 @@ public:
     }
 
     User logIn() {
+        map<string,User> users = usersData.getUsers();
+
         clear();
         string username, password;
         cout << "\n------------------Inicio de sección------------------" << endl;
@@ -43,7 +43,7 @@ public:
         return us.authenticateUser(users);
     }
 
-    User createAccount(int newId) {
+    User createAccount() {
         clear();
         string newUsername, newPassword, newEmail;
 
@@ -55,14 +55,14 @@ public:
         cout << "Ingrese una nueva contrasena: ";
         cin >> newPassword;
 
-        User newUs(newId, newUsername, newEmail, newPassword);
+        User newUs(usersData.getNumberUsers(), newUsername, newEmail, newPassword);
 
-        if(newUs.exist(users)){
+        if(usersData.exist(newUs)){
             cout<<"Este usuario ya fue creado, elige otro nombre de usuario"<<endl;
             return User();
         } 
 
-        newUs.createUser();
+        usersData.createUser(newUs);
         
         cout << "Cuenta creada exitosamente.\n";
         
@@ -86,8 +86,7 @@ public:
             return logIn();
 
         }else if(opc == 2){
-            User newUser = createAccount(users.size() + 1);
-            users[newUser.getName()] = newUser;
+            User newUser = createAccount();
             return newUser;
         }else if(opc == 3){
             cout<<"Saliste del programa"<<endl;
@@ -113,7 +112,7 @@ public:
         cin>>selectedFlight;
 
         Flight selected = flights[selectedFlight];
-        
+
         clear();
         cout<<selected.toString()<<endl;
         selected.printAvailability();

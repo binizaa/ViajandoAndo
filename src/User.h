@@ -142,32 +142,6 @@ public:
         isValid = valid;
     }
 
-    void createUser() {
-        ofstream userFile;
-
-        userFile.open("userData.csv", ios::app);
-
-        if (!userFile) {
-            cerr << "Error: No se pudo abrir el archivo userData.csv" << endl;
-            return;
-        }
-
-        userFile << id_user << "," << name << "," << mail << "," << password << endl;
-
-        userFile.close();
-
-        //Crear el simulador de revervaciones
-
-        ofstream reservation("./userReservations/" + to_string(id_user) + ".csv");
-
-        if (!reservation) {
-            cerr << "Error: No se pudo crear el archivo de reservas para " << name << endl;
-            return;
-        }
-
-        reservation.close();
-    }
-
     User authenticateUser(map<string, User> users) {
         if (users.find(name) != users.end()) {
             if (users[name].password == password) {
@@ -181,10 +155,6 @@ public:
         }
         cout << "Ese usuario no existe" << endl;
         return User(); // Usuario no válido
-    }
-
-    bool exist(map<string, User> users){
-        return users.find(name) != users.end();
     }
 
     /**
