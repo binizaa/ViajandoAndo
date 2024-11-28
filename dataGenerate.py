@@ -6,7 +6,8 @@ from datetime import datetime, timedelta
 def generate_seat_map():
     seat_map = []
     for i in range(6):  # 6 filas de asientos (A, B, C, D, E, F)
-        row = ''.join(random.choice(['.', 'X']) for _ in range(30))  # Genera una fila con 30 caracteres (vacío o ocupado)
+        # Usamos random.choices() para dar más probabilidad a los puntos (.)
+        row = ''.join(random.choices(['.', 'X'], weights=[80, 20], k=30))  # 80% de probabilidad para '.', 20% para 'X'
         seat_map.append(row)
     return seat_map
 
@@ -44,6 +45,6 @@ columns = ["Flight Number", "Airline", "Price", "Duration (hrs)", "Date", "Origi
 df_decimals = pd.DataFrame(flight_data_decimals, columns=columns)
 
 # Guardar el DataFrame en un archivo CSV
-df_decimals.to_csv("flight_data.csv", index=False)
+df_decimals.to_csv("flightData.csv", index=False)
 
 print("CSV generado correctamente con los datos de los vuelos y los mapas de asientos.")

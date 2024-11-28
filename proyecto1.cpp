@@ -104,7 +104,8 @@ void mostrarVuelos(map<int,Flight> flights){
 
     Flight selected = flights[selectedFlight];
     clear();
-    cout<<selected.toString();
+    cout<<selected.toString()<<endl;
+    selected.printAvailability();
     
 }
 
@@ -136,6 +137,52 @@ map<string,User> loadDataBase() {
     return users;
 }
 
+vector<int> dateFormat(string dateStr) {
+    vector<int> date(3);
+    stringstream dateStream(dateStr);
+    string year, month, day;
+
+    if (getline(dateStream, year, '-') &&
+        getline(dateStream, month, '-') &&
+        getline(dateStream, day)) {
+        date[0] = stoi(day);   // Día
+        date[1] = stoi(month); // Mes
+        date[2] = stoi(year);  // Año
+    }
+
+    return date;
+}
+
+vector<string> separateAvailability(string line) {
+    vector<string> seatLines;
+    stringstream ss(line);  
+    string seatLine;
+    
+    for (int i = 0; i < 6; ++i) {
+        if (getline(ss, seatLine, ',')) {  
+            seatLines.push_back(seatLine);  // Agregar al vector
+        } else {
+            cerr << "Error: Se esperaba más datos para las líneas de disponibilidad." << endl;
+            break;  
+        }
+    }
+    
+    return seatLines;
+}
+
+vector<vector<bool> > availabilityFormat(const vector<string>& seatLines) {
+    vector<vector<bool> > seatAvailability(6, vector<bool>(30, false));  
+
+    for (int i = 0; i < 6; ++i) {
+        for (int j = 0; j < 30; ++j) {
+            seatAvailability[i][j] = (seatLines[i][j] == '.');
+        }
+    }
+
+    return seatAvailability;
+}
+
+
 map<int, Flight> loadFlightData() {
     map<int, Flight> flights;
 
@@ -150,7 +197,7 @@ map<int, Flight> loadFlightData() {
 
     while (getline(file, line)) {
         stringstream ss(line);
-        string flightNumberStr, airline, priceStr, durationStr, dateStr, origin, destination;
+        string flightNumberStr, airline, priceStr, durationStr, dateStr, origin, destination, avality;
 
         if (getline(ss, flightNumberStr, ',') &&
             getline(ss, airline, ',') &&
@@ -158,29 +205,20 @@ map<int, Flight> loadFlightData() {
             getline(ss, durationStr, ',') &&
             getline(ss, dateStr, ',') &&
             getline(ss, origin, ',') &&
-            getline(ss, destination, ',')) {
+            getline(ss, destination, ',') &&
+            getline(ss, line)) {
 
             int flightNumber = stoi(flightNumberStr);
             float price = stof(priceStr);
             float duration = stof(durationStr);
 
             // Dividir la fecha en partes: YYYY-MM-DD
-            vector<int> date(3);
-            stringstream dateStream(dateStr);
-            string year, month, day;
+            vector<int> date = dateFormat(dateStr);
+            //cout<<date[0]<<" "<<date[1]<<" "<<date[2]<<endl;
 
-            if (getline(dateStream, year, '-') &&
-                getline(dateStream, month, '-') &&
-                getline(dateStream, day)) {
-                date[0] = stoi(day); 
-                date[1] = stoi(month);
-                date[2] = stoi(year);
-            } else {
-                cerr << "Error: Fecha malformada: " << dateStr << endl;
-                continue;
-            }
+            vector<string> availity = separateAvailability(line);
 
-            flights[flightNumber] = Flight(flightNumber, airline, price, duration, date, origin, destination);
+            flights[flightNumber] = Flight(flightNumber, airline, price, duration, date, origin, destination, availity);
         } else {
             cerr << "Error: Línea malformada: " << line << endl;
         }
@@ -194,10 +232,11 @@ map<int, Flight> loadFlightData() {
 int main() {
     map<int, Flight> flightData = loadFlightData();
     map<string,User> userData = loadDataBase();
+    
     User user = accountLogin(userData);
 
     if(!user.getIsValid()) return 0;
-
+    
     int option;
     char regresar = 'N';
     do {

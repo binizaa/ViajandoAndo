@@ -23,14 +23,14 @@ private:
     vector<int> date;
     string origin;
     string destination;
-    vector<vector<bool> > availability;
+    vector<string> availability;
 
 public:
 
     Flight()
         : flight_number(0), price(0.0), duration(0.0), date(3, 0), origin(""), destination("") {}
 
-    Flight(int _flight_number, string _airline, float _price, float _duration, vector<int> _date, string _origin, string _destination) {
+    Flight(int _flight_number, string _airline, float _price, float _duration, vector<int> _date, string _origin, string _destination, vector<string> __availability) {
         flight_number = _flight_number;
         airline = _airline;
         price = _price;
@@ -38,6 +38,7 @@ public:
         date = _date;
         origin = _origin;
         destination = _destination;
+        availability = __availability;
     }
     
     /**
@@ -108,7 +109,7 @@ public:
      * 
      * @return Disponibilidad de asientos.
      */
-    vector<vector<bool> > getAvailability() const { 
+    vector<string> getAvailability() const { 
         return availability; 
     }
 
@@ -180,7 +181,7 @@ public:
      * 
      * @param avail Disponibilidad de asientos.
      */
-    void setAvailability(vector<vector<bool> > avail) { 
+    void setAvailability(vector<string> avail) { 
         availability = avail; 
     }
 
@@ -215,6 +216,24 @@ public:
         return output.str();
     }
 
-    
+    void printAvailability() {
+        const string RED = "\033[31m";    
+        const string GREEN = "\033[32m";  
+        const string RESET = "\033[0m";   
+
+        for (int i = 0; i < availability.size(); ++i) {
+            for (int j = 0; j < availability[i].size(); ++j) {
+                if (availability[i][j] == 'X') {
+                    cout << RED << 'X' << RESET << " ";  
+                } else {
+                    cout << GREEN << '.' << RESET << " ";  
+                }
+            }
+            cout << endl;  // Imprimir una nueva línea al final de cada fila
+            if(i==2) cout<<endl;
+        }
+        cout<<endl;
+    }
+ 
 };
 #endif
