@@ -25,7 +25,7 @@ private:
 
         return date;
     }
-    
+
     vector<string> separateAvailability(string line) {
         vector<string> seatLines;
         stringstream ss(line);  
@@ -47,7 +47,7 @@ public:
     map<int, Flight> loadFlightData() {
         map<int, Flight> flights;
 
-        ifstream file("flightData.csv");
+        ifstream file("./BaseData/flightData.csv");
         if (!file) {
             cerr << "Error: No se pudo abrir el archivo flightData.csv" << endl;
             return flights;

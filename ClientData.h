@@ -11,7 +11,7 @@ public:
     map<string,User> loadDataBase() {
         map<string,User> users;
 
-        ifstream file("userData.csv");
+        ifstream file("./BaseData/userData.csv");
         if (!file) {
             cerr << "Error: No se pudo abrir el archivo userData.csv" << endl;
             return users; 
