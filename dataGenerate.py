@@ -47,4 +47,4 @@ df_decimals = pd.DataFrame(flight_data_decimals, columns=columns)
 # Guardar el DataFrame en un archivo CSV
 df_decimals.to_csv("flightData.csv", index=False)
 
-print("CSV generado correctamente con los datos de los vuelos y los mapas de asientos.")
+print("CSV generado correctamente con los datos de los vuelos y lo.")
