@@ -34,6 +34,7 @@ User logIn(map<string,User> users) {
 }
 
 User createAccount(int newId, map<string,User> users) {
+    clear();
     string newUsername, newPassword, newEmail;
 
     cout << "\n------------------Crear cuenta------------------" << endl;
@@ -96,6 +97,14 @@ void mostrarVuelos(map<int,Flight> flights){
     for (map<int, Flight>::const_iterator it = flights.begin(); it != flights.end(); ++it) {
         cout << it->second.toString() << endl;
     }
+
+    int selectedFlight;
+    cout<<"\nSelecciona el vuelo que quieras ver a detalle: "<<endl;
+    cin>>selectedFlight;
+
+    Flight selected = flights[selectedFlight];
+    clear();
+    cout<<selected.toString();
     
 }
 
