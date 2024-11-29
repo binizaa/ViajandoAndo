@@ -139,6 +139,22 @@ public:
         }
     }
 
+    vector<Flight> dateAndAirlineFilter(string airline, int day, int month, int year) {
+        vector<Flight> filteredFlights;
+        cout<<flights.size();
+
+        for (map<int, Flight>::const_iterator it = flights.begin(); it != flights.end(); ++it) {
+            const Flight& flight = it->second; // Acceder al objeto Flight
+            vector<int> date = flight.getDate();
+                
+            if (flight.getAirline() == airline && date[0] == day && date[1] == month && date[2] == year) {
+                filteredFlights.push_back(flight); 
+            }
+        }
+
+        return filteredFlights;
+    }
+
 };
 
 #endif

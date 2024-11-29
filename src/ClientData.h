@@ -98,6 +98,7 @@ public:
         userFile << idVuelo << "," << row << "," << col << endl;
 
         userFile.close();
+
     }
 };
 #endif

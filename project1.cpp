@@ -16,11 +16,11 @@ using namespace std;
 /*
 Añadir un nuevo usuario al sistema de reservación. +
 Mostrar todos los vuelos. +
-Buscar vuelos de aerolínea en una fecha específica.4
+Buscar vuelos de aerolínea en una fecha específica. +
 Elegir un vuelo con base en los detalles (precio, duración, tipo de asiento).
 Mostrar todos los detalles del vuelo elegido. +
 Contar los kilómetros acumulados de cada pasajero. Si tiene más de 50,000 km, entonces el sistema aplica descuento del 40% en el precio del vuelo.
-Cancelar una reservación.
+Cancelar una reservación. 
 */
 int main() {
 
@@ -34,7 +34,7 @@ int main() {
     char regresar = 'N';
 
     do {
-        //aplication.clear();
+        aplication.clear();
         
         cout<<"Bienvenido al ViajandoAndo "<<user.getName()<<endl;
         cout << "\n--- Menú de Vuelos ---\n";
@@ -55,6 +55,7 @@ int main() {
                 break;
             case 2:
                 cout << "Buscar vuelos por aerolínea y fecha específica seleccionada.\n";
+                aplication.dateAndAirlineFilter();
                 break;
             case 3:
                 cout << "Opción 3: Elegir un vuelo basado en detalles seleccionada.\n";

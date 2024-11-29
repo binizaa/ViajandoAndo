@@ -19,6 +19,7 @@ public:
 
     Aplication(){
         flights = flightsData.loadFlightData();
+        flightsData.setFlights(flights);
         client = accountLogin();
     }
 
@@ -141,6 +142,38 @@ public:
 
         for (map<int, Flight>::const_iterator it = flights.begin(); it != flights.end(); ++it) {
             cout << it->second.toString() << endl;
+        }
+
+        reserva();
+    }
+
+    void dateAndAirlineFilter(){
+        clear();
+        string airline;
+        int day, month, year;
+
+        cout << "Introduce la aerolínea: ";
+        cin >> airline;
+
+        cout << "Introduce el día (1-31): ";
+        cin >> day;
+
+        cout << "Introduce el mes (1-12): ";
+        cin >> month;
+
+        cout << "Introduce el año: ";
+        cin >> year;
+
+        vector<Flight> filteredFlights = flightsData.dateAndAirlineFilter(airline, day, month, year);
+
+        // Mostrar los resultados filtrados
+        if (filteredFlights.empty()) {
+            cout << "No se encontraron vuelos para la aerolínea y la fecha proporcionadas." << endl;
+        } else {
+            cout << "Vuelos encontrados:" << endl;
+            for (const Flight& flight : filteredFlights) {
+                cout << flight.toString() << endl;
+            }
         }
 
         reserva();
