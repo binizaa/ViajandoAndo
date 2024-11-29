@@ -43,18 +43,16 @@ public:
             float price;
             string temp;
 
-            // Lee y convierte todos los valores en un solo bloque if
             if (getline(ss, temp, ',') && 
-                (idFlight = stoi(temp), true) &&           // Convierte idFlight a int
+                (idFlight = stoi(temp), true) &&           
                 getline(ss, temp, ',') && 
-                (rowSeat = stoi(temp), true) &&            // Convierte rowSeat a int
+                (rowSeat = stoi(temp), true) &&            
                 getline(ss, temp, ',') && 
-                (colSeat = stoi(temp), true) &&            // Convierte colSeat a int
-                getline(ss, temp)) {                       // Lee el precio
-                price = stof(temp);                        // Convierte price a float
+                (colSeat = stoi(temp), true) &&            
+                getline(ss, temp)) {                       
+                price = stof(temp);                        
 
-                // Crea la reserva y la agrega al mapa
-                reservations[idFlight + 1] = Reservation(idFlight, rowSeat, colSeat, price);
+                reservations[idFlight] = Reservation(idFlight, rowSeat, colSeat, price);
             } else {
                 cerr << "Error: Línea malformada: " << line << endl;
             }

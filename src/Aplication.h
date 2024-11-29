@@ -178,7 +178,9 @@ public:
         }
         
         cout << "Vuelos encontrados:" << endl;
-        for (Flight flight : filteredFlights) cout << flight.toString() << endl;
+        for (int i = 0; i < filteredFlights.size(); i++) {
+            cout<<filteredFlights[i].toString()<<endl; 
+        }
 
     }
 
@@ -207,14 +209,12 @@ public:
             cout << "¿Para qué vuelo (ID del vuelo) quieres cancelar la reserva? ";
             cin >> canceledIdFlight;
 
-            // Verificar si la reserva existe y eliminarla
-            if (reservations.erase(canceledIdFlight)) {
-                reservationsData.setReservations(reservations);
-                reservationsData.update(client.getIdUser());
-                cout << "Reserva cancelada exitosamente." << endl;
-            } else {
-                cout << "Error: No se encontró la reserva para el vuelo " << canceledIdFlight << ".\n" << endl;
-            }
+            reservations.erase(canceledIdFlight);
+            
+            reservationsData.setReservations(reservations);
+            reservationsData.update(client.getIdUser());
+            cout << "Reserva cancelada exitosamente." << endl;
+
         } else {
             cout << "No se ha cancelado ninguna reserva." << endl;
         }

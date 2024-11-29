@@ -194,16 +194,12 @@ public:
      * @return Una cadena que contiene la descripción completa del vuelo.
      */
     string toString() const {
-        // Usar ostringstream para manejar el formato
         ostringstream output;
 
-        // Establecer precisión para precio y duración
         output << fixed << setprecision(2);
 
-        // Formatear la fecha
         string dateStr = to_string(date[0]) + "/" + to_string(date[1]) + "/" + to_string(date[2]);
 
-        // Construir el string del vuelo
         output << "Vuelo: " << flight_number
                << "\nOrigen: " << origin
                << "\nDestino: " << destination
@@ -212,7 +208,6 @@ public:
                << "\nDuración: " << static_cast<int>(duration) << " hrs"
                << "\nFecha: " << dateStr << "\n";
 
-        // Convertir ostringstream a string
         return output.str();
     }
 

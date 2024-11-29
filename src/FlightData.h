@@ -143,7 +143,7 @@ public:
         vector<Flight> filteredFlights;
 
         for (map<int, Flight>::const_iterator it = flights.begin(); it != flights.end(); ++it) {
-            const Flight& flight = it->second; // Acceder al objeto Flight
+            const Flight& flight = it->second; 
             vector<int> date = flight.getDate();
                 
             if (flight.getAirline() == airline && date[0] == day && date[1] == month && date[2] == year) {
