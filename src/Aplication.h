@@ -51,8 +51,7 @@ public:
         cout << "Ingrese su contrasena: ";
         cin >> password;
 
-        User us(username, password);
-        return us.authenticateUser(users);
+        return usersData.authenticateUser(username, password);
     }
 
     User createAccount() {

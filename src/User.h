@@ -141,21 +141,6 @@ public:
         isValid = valid;
     }
 
-    User authenticateUser(map<string, User> users) {
-        if (users.find(name) != users.end()) {
-            if (users[name].password == password) {
-                cout << "Contraseña correcta, cargando..." << endl;
-                this_thread::sleep_for(chrono::seconds(1));
-                return users[name]; 
-            } else {
-                cout << "Contraseña incorrecta" << endl;
-                return User(); // Usuario no válido
-            }
-        }
-        cout << "Ese usuario no existe" << endl;
-        return User(); // Usuario no válido
-    }
-
     /**
      * Convierte la información del usuario a una representación de cadena.
      * 

@@ -56,6 +56,21 @@ public:
         return users.find(user.getName()) != users.end();
     }
 
+    User authenticateUser(string name, string password) {
+        if (users.find(name) != users.end()) {
+            if (users[name].getPassword() == password) {
+                cout << "Contraseña correcta, cargando..." << endl;
+                this_thread::sleep_for(chrono::seconds(1));
+                return users[name]; 
+            } else {
+                cout << "Contraseña incorrecta" << endl;
+                return User(); // Usuario no válido
+            }
+        }
+        cout << "Ese usuario no existe" << endl;
+        return User(); // Usuario no válido
+    }
+
     void add(User user) {
         users[user.getName()] = user;
         ofstream userFile;
