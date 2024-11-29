@@ -128,6 +128,8 @@ public:
 
         if(selected.disponible(col - 1, letter - 'A')){
             usersData.reserva(selectedFlight, client.getIdUser(), col - 1, letter - 'A');
+            flightsData.setFlights(flights);
+            flightsData.update();
             cout<<"Reservación completada"<<endl;
         }
     }

@@ -5,10 +5,13 @@
 #include <string>
 
 #include "User.h"
+#include "Flight.h"
+
+using namespace std;
 
 class FlightData{
 private:
-    map<string,User> flights;
+    map<int,Flight> flights;
 
     vector<int> dateFormat(string dateStr) {
         vector<int> date(3);
@@ -44,6 +47,11 @@ private:
     }
 
 public:
+
+    void setFlights(map<int,Flight> _flights){
+        flights = _flights;
+    }
+
     map<int, Flight> loadFlightData() {
         map<int, Flight> flights;
 
@@ -89,7 +97,48 @@ public:
 
         return flights;
     }
- 
+
+    void update() {
+        ofstream file("./BaseData/flightData.csv");
+        if (!file) {
+            cerr << "Error: No se pudo abrir el archivo flightData.csv" << endl;
+            return;
+        }
+
+        file << "Flight Number,Airline,Price,Duration (hrs),Date,Origin,Destination,Seat Row 1,Seat Row 2,Seat Row 3,Seat Row 4,Seat Row 5,Seat Row 6\n";
+
+        for (map<int, Flight>::iterator it = flights.begin(); it != flights.end(); ++it) {
+            int flightNumber = it->first;
+            Flight flight = it->second;  
+
+            string airline = flight.getAirline();
+            double price = flight.getPrice();
+            int duration = flight.getDuration();
+            vector<int> date = flight.getDate();  
+            string origin = flight.getOrigin();
+            string destination = flight.getDestination();
+            vector<string> availability = flight.getAvailability();
+            
+            stringstream dateStream;
+            dateStream << date[2] << "/" << (date[1] < 10 ? "0" : "") << date[1] << "/" << (date[0] < 10 ? "0" : "") << date[0];
+            string dateStr = dateStream.str();
+
+            file << flightNumber << ","
+                 << airline << ","
+                 << price << ","
+                 << duration << ","
+                 << dateStr << ","
+                 << origin << ","
+                 << destination << ","
+                 << availability[0] << ","
+                 << availability[1] << ","
+                 << availability[2] << ","
+                 << availability[3] << ","
+                 << availability[4] << ","
+                 << availability[5] << "\n";
+        }
+    }
+
 };
 
 #endif
