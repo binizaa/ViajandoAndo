@@ -13,11 +13,17 @@ private:
     FlightData flightsData;
     ClientData usersData;
     map<int, Flight> flights;
+    User client;
 
 public:
 
     Aplication(){
         flights = flightsData.loadFlightData();
+        client = accountLogin();
+    }
+
+    User getClient(){
+        return client;
     }
 
     void clear(){
@@ -98,6 +104,34 @@ public:
         }
     }
 
+    void reserva(){
+
+        int selectedFlight;
+        cout<<"\nSelecciona el vuelo que quieras ver a detalle: ";
+        cin>>selectedFlight;
+
+        Flight selected = flights[selectedFlight];
+
+        clear();
+        cout<<selected.toString()<<endl;
+        selected.printAvailability();
+
+        cout<<"¿Quieres reservar? (S/N): ";
+        char reservar; cin>>reservar; cout<<endl;
+
+        if(toupper(reservar) != 'S') return;
+
+        int col; char letter;
+
+        cout<<"Selecciona la columna (1-30): "; cin>>col;
+        cout<<"Selecciona A/B/C/D/E/F/G: "; cin>>letter;
+
+        if(selected.disponible(col - 1, letter - 'A')){
+            usersData.reserva(selectedFlight, client.getIdUser(), col - 1, letter - 'A');
+            cout<<"Reservación completada"<<endl;
+        }
+    }
+
     void mostrarVuelos(){
         clear();
         
@@ -107,16 +141,7 @@ public:
             cout << it->second.toString() << endl;
         }
 
-        int selectedFlight;
-        cout<<"\nSelecciona el vuelo que quieras ver a detalle: "<<endl;
-        cin>>selectedFlight;
-
-        Flight selected = flights[selectedFlight];
-
-        clear();
-        cout<<selected.toString()<<endl;
-        selected.printAvailability();
-        
+        reserva();
     }
 };
 

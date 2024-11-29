@@ -219,20 +219,41 @@ public:
     void printAvailability() {
         const string RED = "\033[31m";    
         const string GREEN = "\033[32m";  
-        const string RESET = "\033[0m";   
+        const string RESET = "\033[0m";  
+                cout<<"  ";
+ 
+
+        for (int i = 0; i < availability[0].size(); ++i) {
+            cout << setw(3) << i + 1; 
+        }
+        cout << endl;
+
 
         for (int i = 0; i < availability.size(); ++i) {
+            cout << static_cast<char>(i + 65) << " ";  
+
+            // Imprimir los valores de la fila
             for (int j = 0; j < availability[i].size(); ++j) {
                 if (availability[i][j] == 'X') {
-                    cout << RED << 'X' << RESET << " ";  
+                    cout << RED << setw(3) << 'X' << RESET;
                 } else {
-                    cout << GREEN << '.' << RESET << " ";  
+                    cout << GREEN << setw(3) << '.' << RESET; 
                 }
             }
-            cout << endl;  // Imprimir una nueva línea al final de cada fila
             if(i==2) cout<<endl;
+            cout << endl;  
         }
-        cout<<endl;
+        cout << endl; 
+    }
+
+    bool disponible(int col, int row){        
+        if(availability[row][col] == 'X'){
+            cout<<"\nAsiento ocupado"<<endl;
+            return false;
+        }
+
+        availability[row][col] = 'X';
+        return true;
     }
  
 };

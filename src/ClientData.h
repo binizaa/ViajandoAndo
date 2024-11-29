@@ -73,7 +73,8 @@ public:
 
         //Crear el simulador de revervaciones
 
-        ofstream reservation("./userReservations/" + to_string(user.getIdUser()) + ".csv");
+        ofstream reservation;
+        userFile.open("./BaseData/userReservation/" + to_string(user.getIdUser()) + ".csv", ios::app);
 
         if (!reservation) {
             cerr << "Error: No se pudo crear el archivo de reservas para " << user.getName() << endl;
@@ -81,6 +82,22 @@ public:
         }
 
         reservation.close();
+    }
+
+    void reserva(int idVuelo, int idUser, int col, int row){
+        ofstream userFile;
+
+
+        userFile.open("./BaseData/userReservation/" + to_string(idUser) + ".csv", ios::app);
+
+        if (!userFile) {
+            cerr << "Error: No se pudo abrir el archivo" << endl;
+            return;
+        }
+
+        userFile << idVuelo << "," << row << "," << col << endl;
+
+        userFile.close();
     }
 };
 #endif
