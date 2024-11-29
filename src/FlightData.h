@@ -98,6 +98,8 @@ public:
         return flights;
     }
 
+
+
     void update() {
         ofstream file("./BaseData/flightData.csv");
         if (!file) {
@@ -119,9 +121,7 @@ public:
             string destination = flight.getDestination();
             vector<string> availability = flight.getAvailability();
             
-            stringstream dateStream;
-            dateStream << date[2] << "/" << (date[1] < 10 ? "0" : "") << date[1] << "/" << (date[0] < 10 ? "0" : "") << date[0];
-            string dateStr = dateStream.str();
+            string dateStr = to_string(date[2]) + "-" + to_string(date[1]) + "-" + to_string(date[0]);
 
             file << flightNumber << ","
                  << airline << ","

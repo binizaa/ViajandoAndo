@@ -110,7 +110,7 @@ public:
         cout<<"\nSelecciona el vuelo que quieras ver a detalle: ";
         cin>>selectedFlight;
 
-        Flight selected = flights[selectedFlight];
+        Flight& selected = flights[selectedFlight];
 
         clear();
         cout<<selected.toString()<<endl;
@@ -129,7 +129,7 @@ public:
         if(selected.disponible(col - 1, letter - 'A')){
             usersData.reserva(selectedFlight, client.getIdUser(), col - 1, letter - 'A');
             flightsData.setFlights(flights);
-            flightsData.update();
+            //flightsData.update();
             cout<<"Reservación completada"<<endl;
         }
     }
