@@ -9,7 +9,7 @@
 
 using namespace std;
 
-class FlightData{
+class FlightData {
 private:
     map<int,Flight> flights;
 
@@ -52,7 +52,7 @@ public:
         flights = _flights;
     }
 
-    map<int, Flight> loadFlightData() {
+    map<int, Flight> load() {
         map<int, Flight> flights;
 
         ifstream file("./BaseData/flightData.csv");

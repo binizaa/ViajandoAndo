@@ -39,7 +39,7 @@ int main() {
         cout << "\n--- Menú de Vuelos ---\n";
         cout << "1. Mostrar todos los vuelos\n";
         cout << "2. Buscar vuelos por aerolínea y fecha específica\n";
-        cout << "3. Cancelar una reservación\n";
+        cout << "3. Ver tus reservaciones\n";
         cout << "4. Salir\n";
         cout << "Seleccione una opción: ";
         cin >> option;
@@ -47,15 +47,13 @@ int main() {
 
         switch (option) {
             case 1:
-                aplication.mostrarVuelos();
+                aplication.showFlights();
                 break;
             case 2:
-                cout << "Buscar vuelos por aerolínea y fecha específica seleccionada.\n";
                 aplication.dateAndAirlineFilter();
                 break;
             case 3:
-                cout << "Opción 6: Cancelar una reservación seleccionada.\n";
-                aplication.cancelReservetion();
+                aplication.showReservations();
                 break;
             case 4:
                 regresar = 'N';
@@ -68,6 +66,7 @@ int main() {
         if(option!=7){
             cout<<"¿Deseas regresar al ménu del usuario?(S/N): ";
             cin>>regresar;
+            cout<<endl;
         }
 
     } while (option != 7 && toupper(regresar) == 'S');

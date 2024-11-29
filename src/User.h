@@ -40,7 +40,6 @@ public:
         isValid = true;
     }
 
-    // Constructor para un usuario no válido
     User() : name(""), password(""), isValid(false) {}
     
     /**

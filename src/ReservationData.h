@@ -19,14 +19,14 @@ public:
 
     // Constructor público para permitir la creación de objetos
     ReservationData(int idUser) {
-        reservations = loadReservationData(idUser);
+        reservations = load(idUser);
     }
 
     void setReservations(map<int,Reservation> _reservations){
         reservations = _reservations;
     }
 
-    map<int, Reservation> loadReservationData(int idUser) {
+    map<int, Reservation> load(int idUser) {
         map<int, Reservation> reservations;
 
         // Ruta al archivo con las reservas del usuario
@@ -91,7 +91,6 @@ public:
         }
     }
 
-    //void update()
 };
 
 #endif

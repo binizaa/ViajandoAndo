@@ -13,7 +13,7 @@ class Aplication{
 private:
     FlightData flightsData;
     ClientData usersData;
-    ReservationData reservationData;
+    ReservationData reservationsData;
     map<int, Flight> flights;
     map<int,Reservation> reservations;
     User client;
@@ -21,13 +21,13 @@ private:
 public:
 
     Aplication(){
-        flights = flightsData.loadFlightData();
+        flights = flightsData.load();
         flightsData.setFlights(flights);
         client = accountLogin();
     }
 
     User getClient(){
-        reservations = reservationData.loadReservationData(client.getIdUser());
+        reservations = reservationsData.load(client.getIdUser());
         cout<<reservations.size();
         return client;
     }
@@ -74,7 +74,7 @@ public:
             return User();
         } 
 
-        usersData.createUser(newUs);
+        usersData.add(newUs);
         
         cout << "Cuenta creada exitosamente.\n";
         
@@ -109,64 +109,65 @@ public:
         }
     }
 
-    void reserva(){
-
+    void reserva() {
         int selectedFlight;
-        cout<<"\nSelecciona el vuelo que quieras ver a detalle: ";
-        cin>>selectedFlight;
+        cout << "\nSelecciona el vuelo que quieras ver a detalle: ";
+        cin >> selectedFlight;
 
         Flight& selected = flights[selectedFlight];
 
         clear();
-        cout<<selected.toString()<<endl;
+        cout << selected.toString() << endl;
         selected.printAvailability();
 
-        cout<<"¿Quieres reservar? (S/N): ";
-        char reservar; cin>>reservar; cout<<endl;
+        cout << "¿Quieres reservar? (S/N): ";
+        char reserve; 
+        cin >> reserve; 
+        cout << endl;
 
-        if(toupper(reservar) != 'S') return;
+        if (toupper(reserve) != 'S') return;
 
-        int col; char letter;
+        int col; 
+        char letter;
 
-        cout<<"Selecciona la columna (1-30): "; cin>>col;
-        cout<<"Selecciona A/B/C/D/E/F/G: "; cin>>letter;
+        cout << "Selecciona la columna (1-30): "; 
+        cin >> col;
+        cout << "Selecciona A/B/C/D/E/F/G: "; 
+        cin >> letter;
 
-        if(selected.disponible(col - 1, letter - 'A')){
-            usersData.updateReservations(selected, client.getIdUser(), col - 1, letter - 'A');
+        if (selected.available(col - 1, letter - 'A')) {
+            usersData.addReservation(selected, client.getIdUser(), col - 1, letter - 'A');
             flightsData.setFlights(flights);
-            reservations[selectedFlight] = Reservation(selectedFlight,col - 1, letter - 'A', selected.getPrice());
-            cout<<"Reservación completada"<<endl;
+            reservations[selectedFlight] = Reservation(selectedFlight, col - 1, letter - 'A', selected.getPrice());
+            cout << "Reservación completada\n" << endl;
         }
     }
 
-    void mostrarVuelos(){
+    void showFlights() {
         clear();
         
         cout << "------------------Vuelos disponibles------------------\n" << endl;
 
-        for (map<int, Flight>::const_iterator it = flights.begin(); it != flights.end(); ++it) {
+        for (map<int, Flight>::const_iterator it = flights.begin(); it != flights.end(); ++it)
             cout << it->second.toString() << endl;
-        }
 
         reserva();
     }
+
+
 
     void dateAndAirlineFilter(){
         clear();
         string airline;
         int day, month, year;
 
-        cout << "Introduce la aerolínea: ";
-        cin >> airline;
+        cout<<"---------------Filtrar por aerolinea y fecha---------------------"<<endl;
 
-        cout << "Introduce el día (1-31): ";
-        cin >> day;
+        cout << "Introduce la aerolínea: "; cin >> airline;
 
-        cout << "Introduce el mes (1-12): ";
-        cin >> month;
-
-        cout << "Introduce el año: ";
-        cin >> year;
+        cout << "Introduce el día (1-31): "; cin >> day;
+        cout << "Introduce el mes (1-12): "; cin >> month;
+        cout << "Introduce el año: "; cin >> year;
 
         cout<<endl;
 
@@ -174,37 +175,50 @@ public:
 
         if (filteredFlights.empty()) {
             cout << "No se encontraron vuelos para la aerolínea y la fecha proporcionadas." << endl;
-        } else {
-            cout << "Vuelos encontrados:" << endl;
-            for (Flight flight : filteredFlights) {
-                cout << flight.toString() << endl;
-            }
+            return;
         }
+        
+        cout << "Vuelos encontrados:" << endl;
+        for (Flight flight : filteredFlights) cout << flight.toString() << endl;
 
-        if(!filteredFlights.empty()) reserva();
     }
 
-    void cancelReservetion(){
+    void showReservations() {
         clear();
-        cout<<"-------Cancelar reservas---------------"<<endl;
-        for (map<int, Reservation>::const_iterator it = reservations.begin(); it != reservations.end(); ++it) {
+        cout << "-------Tus reservas---------------" << endl;
+
+        // Mostrar las reservas existentes
+        for (map<int, Reservation>::const_iterator it = reservations.begin(); it != reservations.end(); ++it)
             cout << it->second.toString() << endl;
+
+        // Si no hay reservas, mostramos un mensaje y salimos
+        if (reservations.size() == 0) {
+            cout << "No hay reservaciones\n" << endl;
+            return;
         }
 
-        if(reservations.size() == 0){
-            cout<<"No hay reservaciones"<<endl;
-            return;
-        } 
+        // Preguntar si el usuario desea cancelar una reserva
+        char confirm;
+        cout << "¿Deseas cancelar alguna reserva? (S/N): ";
+        cin >> confirm;
 
-        int canceledIdFlight;
-        cout << "¿Para qué vuelo (ID del vuelo) quieres cancelar la reserva? ";
-        cin>>canceledIdFlight;
+        if (toupper(confirm) == 'S') {
+            int canceledIdFlight;
+            // Solicitar al usuario el ID del vuelo que desea cancelar
+            cout << "¿Para qué vuelo (ID del vuelo) quieres cancelar la reserva? ";
+            cin >> canceledIdFlight;
 
-        reservations.erase(canceledIdFlight);
-        reservationData.setReservations(reservations);
-        reservationData.update(client.getIdUser());
-
-        cout<<endl;
+            // Verificar si la reserva existe y eliminarla
+            if (reservations.erase(canceledIdFlight)) {
+                reservationsData.setReservations(reservations);
+                reservationsData.update(client.getIdUser());
+                cout << "Reserva cancelada exitosamente." << endl;
+            } else {
+                cout << "Error: No se encontró la reserva para el vuelo " << canceledIdFlight << ".\n" << endl;
+            }
+        } else {
+            cout << "No se ha cancelado ninguna reserva." << endl;
+        }
     }
 
 

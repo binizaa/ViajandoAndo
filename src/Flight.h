@@ -246,7 +246,7 @@ public:
         cout << endl; 
     }
 
-    bool disponible(int col, int row){        
+    bool available(int col, int row){        
         if(availability[row][col] == 'X'){
             cout<<"\nAsiento ocupado"<<endl;
             return false;

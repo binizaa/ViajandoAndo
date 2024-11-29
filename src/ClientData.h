@@ -13,7 +13,7 @@ private:
 
 public:
     ClientData(){
-        users = loadDataBase();
+        users = load();
     }
 
     map<string,User> getUsers(){
@@ -24,7 +24,7 @@ public:
         return users.size();
     }
 
-    map<string,User> loadDataBase() {
+    map<string,User> load() {
         map<string,User> users;
 
         ifstream file("./BaseData/userData.csv");
@@ -56,7 +56,7 @@ public:
         return users.find(user.getName()) != users.end();
     }
 
-    void createUser(User user) {
+    void add(User user) {
         users[user.getName()] = user;
         ofstream userFile;
 
@@ -71,8 +71,6 @@ public:
 
         userFile.close();
 
-        //Crear el simulador de revervaciones
-
         ofstream reservation;
         userFile.open("./BaseData/userReservation/" + to_string(user.getIdUser()) + ".csv", ios::app);
 
@@ -84,7 +82,7 @@ public:
         reservation.close();
     }
 
-    void updateReservations(Flight flight, int idUser, int col, int row){
+    void addReservation(Flight flight, int idUser, int col, int row){
         ofstream userFile;
 
 
