@@ -217,7 +217,7 @@ public:
     }
 
     void printAvailability() {
-        
+        cout<<availability[0][0]<<endl;
         const string RED = "\033[31m";    
         const string GREEN = "\033[32m";  
         const string RESET = "\033[0m";  
