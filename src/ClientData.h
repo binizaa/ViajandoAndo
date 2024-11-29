@@ -84,7 +84,7 @@ public:
         reservation.close();
     }
 
-    void reserva(int idVuelo, int idUser, int col, int row){
+    void updateReservations(Flight flight, int idUser, int col, int row){
         ofstream userFile;
 
 
@@ -95,7 +95,7 @@ public:
             return;
         }
 
-        userFile << idVuelo << "," << row << "," << col << endl;
+        userFile << flight.getFlightNumber() << "," << row << "," << col << ","<<flight.getPrice()<<endl;
 
         userFile.close();
 

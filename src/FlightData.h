@@ -141,7 +141,6 @@ public:
 
     vector<Flight> dateAndAirlineFilter(string airline, int day, int month, int year) {
         vector<Flight> filteredFlights;
-        cout<<flights.size();
 
         for (map<int, Flight>::const_iterator it = flights.begin(); it != flights.end(); ++it) {
             const Flight& flight = it->second; // Acceder al objeto Flight

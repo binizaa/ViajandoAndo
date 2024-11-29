@@ -12,10 +12,20 @@
 class Reservation {
 private:
     int id_reserva;
-    Flight vuelo;
+    int idFlight;
     float price;
+    int rowSeat;
+    int colSeat;
 
 public:
+    Reservation() {}
+
+    Reservation(int _idFlight, int _rowSeat, int _colSeat, float _price){
+         idFlight = _idFlight;
+         price = _price;
+         rowSeat = _rowSeat;
+         colSeat = _colSeat;
+    }
     /**
      * Obtiene el ID de la reserva.
      * 
@@ -25,13 +35,23 @@ public:
         return id_reserva; 
     }
     
+    // Obtener el valor de la fila del asiento
+    int getRowSeat() const {
+        return rowSeat;
+    }
+
+    // Obtener el valor de la columna del asiento
+    int getColSeat() const {
+        return colSeat;
+    }
+    
     /**
      * Obtiene el vuelo reservado.
      * 
      * @return Objeto Vuelo reservado.
      */
-    Flight getVuelo() { 
-        return vuelo; 
+    int getVuelo() { 
+        return idFlight; 
     }
     
     /**
@@ -57,8 +77,8 @@ public:
      * 
      * @param v Objeto Vuelo reservado.
      */
-    void setVuelo(Flight v) { 
-        vuelo = v; 
+    void setVuelo(int v) { 
+        idFlight = v; 
     }
     
     /**
@@ -79,11 +99,12 @@ public:
      * 
      * @return Una cadena que contiene la descripción completa de la reservación.
      */
-    string toString() {
-        string str = "ID Reservación: " + to_string(id_reserva);
-        str += " | Vuelo: [" + vuelo.toString() + "]";
-        str += " | Precio: $" + to_string(price);
-        return str;
+    string toString()const{
+        std::stringstream ss;
+        ss << "Vuelo ID: " << idFlight << " | "
+           << "Asiento: (" << static_cast<char>(rowSeat + 'A') << ", " << colSeat << ") |"
+           << "Precio: $" << price;
+        return ss.str();
     }
 };
 
