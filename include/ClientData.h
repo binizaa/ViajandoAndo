@@ -27,7 +27,7 @@ public:
     map<string,User> load() {
         map<string,User> users;
 
-        ifstream file("./BaseData/userData.csv");
+        ifstream file("../BaseData/userData.csv");
         if (!file) {
             cerr << "Error: No se pudo abrir el archivo userData.csv" << endl;
             return users; 
@@ -75,7 +75,7 @@ public:
         users[user.getName()] = user;
         ofstream userFile;
 
-        userFile.open("./BaseData/userData.csv", ios::app);
+        userFile.open("../BaseData/userData.csv", ios::app);
 
         if (!userFile) {
             cerr << "Error: No se pudo abrir el archivo userData.csv" << endl;
@@ -87,7 +87,7 @@ public:
         userFile.close();
 
         ofstream reservation;
-        userFile.open("./BaseData/userReservation/" + to_string(user.getIdUser()) + ".csv", ios::app);
+        userFile.open("../BaseData/userReservation/" + to_string(user.getIdUser()) + ".csv", ios::app);
 
         if (!reservation) {
             cerr << "Error: No se pudo crear el archivo de reservas para " << user.getName() << endl;
@@ -101,7 +101,7 @@ public:
         ofstream userFile;
 
 
-        userFile.open("./BaseData/userReservation/" + to_string(idUser) + ".csv", ios::app);
+        userFile.open("../BaseData/userReservation/" + to_string(idUser) + ".csv", ios::app);
 
         if (!userFile) {
             cerr << "Error: No se pudo abrir el archivo" << endl;

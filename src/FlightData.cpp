@@ -41,7 +41,7 @@ map<int, Flight> FlightData::getFlights() {
 }
 
 void FlightData::load() {
-    ifstream file("./BaseData/flightData.csv");
+    ifstream file("../BaseData/flightData.csv");
     if (!file) {
         cerr << "Error: No se pudo abrir el archivo flightData.csv" << endl;
         return;
@@ -81,7 +81,7 @@ void FlightData::load() {
 }
 
 void FlightData::update() {
-    ofstream file("./BaseData/flightData.csv");
+    ofstream file("../BaseData/flightData.csv");
     if (!file) {
         cerr << "Error: No se pudo abrir el archivo flightData.csv" << endl;
         return;

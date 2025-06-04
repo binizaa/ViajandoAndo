@@ -22,7 +22,7 @@ map<int, Reservation> ReservationData::getReservations() {
 
 // Método para cargar las reservas desde un archivo CSV
 void ReservationData::load() {
-    ifstream file("./BaseData/userReservation/" + to_string(idUser) + ".csv");
+    ifstream file("../BaseData/userReservation/" + to_string(idUser) + ".csv");
     if (!file) {
         cerr << "Error: No se pudo abrir el archivo" << endl;
         return;
@@ -57,7 +57,7 @@ void ReservationData::load() {
 
 // Método para actualizar el archivo con las reservas actuales
 void ReservationData::update() {
-    ofstream file("./BaseData/userReservation/" + to_string(idUser) + ".csv");
+    ofstream file("../BaseData/userReservation/" + to_string(idUser) + ".csv");
     if (!file) {
         cerr << "Error: No se pudo abrir el archivo" << endl;
         return;

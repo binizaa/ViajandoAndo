@@ -4,10 +4,11 @@ Aplication::Aplication(){
     flights = flightsData.getFlights();
     flightsData.setFlights(flights);
     client = accountLogin();
+    reservationsData.setIdUser(client.getIdUser());
+    reservations = reservationsData.getReservations();
 }
 
 User Aplication::getClient(){
-    reservationsData.setIdUser(client.getIdUser());
     return client;
 }
 
