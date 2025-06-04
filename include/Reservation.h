@@ -11,7 +11,7 @@
  */
 class Reservation {
 private:
-    int id_reserva;
+    int id_reserva; 
     int idFlight;
     float price;
     int rowSeat;

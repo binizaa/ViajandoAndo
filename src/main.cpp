@@ -6,10 +6,10 @@
 #include <cctype>
 #include <thread>
 #include <map>
-#include "./src/Flight.h"
-#include "./src/Reservation.h"
-#include "./src/Aplication.h"
-#include "./src/User.h"
+#include "../include/Flight.h"
+#include "../include/Reservation.h"
+#include "../include/Aplication.h"
+#include "../include/User.h"
 
 using namespace std;
 
